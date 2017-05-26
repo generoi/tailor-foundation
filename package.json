@@ -1,0 +1,31 @@
+{
+  "name": "tailor-foundation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tailor-foundation.php",
+  "scripts": {
+    "test": "./node_modules/.bin/xo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/generoi/tailor-foundation.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/generoi/tailor-foundation/issues"
+  },
+  "homepage": "https://github.com/generoi/tailor-foundation#readme",
+  "dependencies": {
+    "xo": "^0.18.2"
+  },
+  "xo": {
+    "space": true,
+    "env": "browser",
+    "esnext": false,
+    "globals": ["jQuery"],
+    "rules": {
+      "no-var": 0
+    }
+  }
+}
