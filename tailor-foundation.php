@@ -49,6 +49,8 @@ class TailorFoundation {
         require_once __DIR__ . '/includes/overrides/grid-item.php';
         require_once __DIR__ . '/includes/overrides/button.php';
         require_once __DIR__ . '/includes/overrides/hero.php';
+        require_once __DIR__ . '/includes/overrides/list.php';
+        require_once __DIR__ . '/includes/overrides/posts.php';
         require_once __DIR__ . '/includes/overrides/helpers.php';
         require_once __DIR__ . '/includes/overrides/styles.php';
     }
