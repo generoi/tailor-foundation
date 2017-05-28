@@ -4,7 +4,7 @@ function tailor_foundation_shortcode_image_element($atts, $content = null, $tag)
     $default_atts = apply_filters('tailor_shortcode_default_atts_' . $tag, []);
     $atts = shortcode_atts($default_atts, $atts, $tag);
     $html_atts = [
-        'id'    => $atts['id'],
+        'id'    => empty($atts['id']) ? null : $atts['id'],
         'class' => explode(' ', "tailor-element tailor-image {$atts['class']}"),
         'data'  => [],
     ];
