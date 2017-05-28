@@ -28,9 +28,9 @@ class TailorFoundation {
 
     public function init() {
         add_action('tailor_load_elements', [$this, 'load_elements'], 20);
+        add_action('tailor_load_elements', [$this, 'load_shortcodes'], 20);
         add_action('tailor_register_elements', [$this, 'register_elements'], 20);
         add_action('tailor_enqueue_sidebar_scripts', [$this, 'add_sidebar_scripts']);
-        // add_filter('tailor_enable_canvas_styles', '__return_false');
         remove_action('wp_enqueue_scripts', [tailor(), 'enqueue_frontend_styles']);
 
         $this->load_overrides();
@@ -56,15 +56,18 @@ class TailorFoundation {
     }
 
     public function load_elements() {
-        // require_once __DIR__ . 'elements/class-row';
-        // require_once __DIR__ . 'elements/class-column';
+        require_once __DIR__ . '/includes/elements/class-image.php';
+    }
+
+    public function load_shortcodes() {
+        require_once __DIR__ . '/includes/shortcodes/shortcode-image.php';
     }
 
     public function register_elements($element_manager) {
-        // $element_manager->add_element('tailor_foundation_card', [
-        //     'label'       => __('Column', 'tailor-foundation'),
-        //     'description' => __('', 'tailor-foundation'),
-        // ]);
+        $element_manager->add_element('tailor_foundation_image', [
+            'label'       => __('Image', 'tailor-foundation'),
+            'description' => __('Display a single image', 'tailor-foundation'),
+        ]);
     }
 }
 
