@@ -53,6 +53,10 @@
           autoColumns++;
         } else {
           columnSpace -= cols;
+          // New row.
+          if (columnSpace === 0) {
+            columnSpace = 12;
+          }
         }
       }
       if (autoColumns) {
