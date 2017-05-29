@@ -11,6 +11,12 @@ class Posts extends Override {
         add_action('tailor_element_register_controls', [$this, 'add_element_controls'], 11);
         add_action('tailor_shortcode_html_attributes', [$this, 'remove_classes'], 10, 3);
         add_filter('tailor_shortcode_html', [$this, 'shortcode_html'], 10, 7);
+        add_action('tailor_canvas_enqueue_scripts', [$this, 'add_canvas_scripts']);
+    }
+
+    public function add_canvas_scripts() {
+        $js_url = plugins_url('posts.canvas.js', __FILE__);
+        wp_enqueue_script('tailor-foundation/canvas/posts', $js_url, ['tailor-canvas'], $this->get_version(), true);
     }
 
     public function remove_classes($html_atts, $atts, $tag) {
