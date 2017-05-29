@@ -1,7 +1,5 @@
 <?php
 
-use Tailor_Element;
-
 if (!defined('WPINC')) {
     die;
 }

@@ -36,7 +36,7 @@ function tailor_foundation_shortcode_image_element($atts, $content = null, $tag)
     else {
         $content = sprintf(
             '<p class="tailor-notification tailor-notification--warning">%s</p>',
-            __( 'Please select an image to display', 'tailor-foundation' )
+            __('Please select an image to display', 'tailor-foundation')
         );
     }
 

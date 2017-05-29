@@ -66,4 +66,3 @@
     });
   });
 })(jQuery, window._, window.Tailor.Api.Setting, window.app);
-
