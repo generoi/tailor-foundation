@@ -62,6 +62,33 @@ class Override {
         }
     }
 
+    public function multi_classes($property, $atts) {
+        $classes = [];
+        if (!empty($atts[$property])) {
+            if (!is_array($atts[$property])) {
+                $atts[$property] = explode(',', $atts[$property]);
+            }
+            foreach ($atts[$property] as $attribute) {
+                $classes[] = trim($attribute);
+            }
+        }
+        return $classes;
+    }
+
+    public function responsive_classes($property, $atts) {
+        $breakpoints = [];
+        if (!empty($atts[$property])) {
+            $breakpoints['large'] = $atts[$property];
+        }
+        if (!empty($atts[$property . '_tablet'])) {
+            $breakpoints['medium'] = $atts[$property . '_tablet'];
+        }
+        if (!empty($atts[$property . 'mobile'])) {
+            $breakpoints['small'] = $atts[$property . '_mobile'];
+        }
+        return $breakpoints;
+    }
+
     public function get_version() {
         return \TailorFoundation::VERSION;
     }

@@ -48,19 +48,21 @@ class Helpers extends Override {
         $element->add_setting('hide_for', $setting_basic);
         $element->add_setting('hide_for_only', $setting_basic);
 
+        $priority = $hidden->priority;
+
         $element->add_control('show_for', [
             'type' => 'select',
             'label' => __('Show on viewports larger than', 'tailor-foundation'),
             'section' => 'visibility',
             'choices' => $this->get_breakpoints(),
-            'priority' => $hidden->priority,
+            'priority' => $priority++,
         ]);
         $element->add_control('show_for_only', [
             'label' => __('Show only on specified viewport'),
             'type' => 'switch',
             'choices' => ['1' => __('Show only on specified viewport')],
             'section' => 'visibility',
-            'priority' => $hidden->priority + 1,
+            'priority' => $priority++,
         ]);
 
         $element->add_control('hide_for', [
@@ -68,14 +70,14 @@ class Helpers extends Override {
             'label' => __('Hide on viewports larger than', 'tailor-foundation'),
             'section' => 'visibility',
             'choices' => $this->get_breakpoints(),
-            'priority' => $hidden->priority + 2,
+            'priority' => $priority++,
         ]);
         $element->add_control('hide_for_only', [
             'label' => __('Hide only on specified viewport'),
             'type' => 'switch',
             'choices' => ['1' => __('Show only on specified viewport')],
             'section' => 'visibility',
-            'priority' => $hidden->priority + 3,
+            'priority' => $priority++,
         ]);
     }
 

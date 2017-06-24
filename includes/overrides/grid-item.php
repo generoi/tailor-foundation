@@ -10,7 +10,11 @@ class GridItem extends Override {
 
     public function add_foundation_classes($html_atts, $atts, $tag) {
         if ($tag == 'tailor_grid_item') {
-            $html_atts['class'][] = 'column';
+            if (apply_filters('tailor-foundation/grid', 'flex-grid') == 'flex-grid') {
+                $html_atts['class'][] = 'column';
+            } else {
+                $html_atts['class'][] = 'cell';
+            }
         }
         return $html_atts;
     }

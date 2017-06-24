@@ -33,16 +33,9 @@ class Row extends Override {
             'sanitize_callback' => 'tailor_sanitize_text',
         ];
 
-        $element->add_setting('row_horizontal_align', $setting);
-        $element->add_setting('row_vertical_align', $setting);
-        $element->add_setting('row_unstack', $setting);
-        $element->add_setting('row_collapse', $setting);
-        $element->add_setting('row_uncollapse', $setting);
-        $element->add_setting('row_grid', $setting);
-        $element->add_setting('row_grid_mobile', $setting);
-        $element->add_setting('row_grid_tablet', $setting);
+        $priority = 21;
 
-        $element->add_control('row_horizontal_align', [
+        $row_horizontal_align = [
             'type' => 'button-group',
             'label' => __('Horizontal alignment', 'tailor-foundation'),
             'section' => 'general',
@@ -52,9 +45,9 @@ class Row extends Override {
                 'right' => '<i class="tailor-icon tailor-align-right"></i>',
                 'justify' => '<i class="tailor-icon tailor-align-justify"></i>',
             ],
-            'priority' => 21,
-        ]);
-        $element->add_control('row_vertical_align', [
+            'priority' => $priority++,
+        ];
+        $row_vertical_align = [
             'type' => 'button-group',
             'label' => __('Vertical alignment', 'tailor-foundation'),
             'section' => 'general',
@@ -63,9 +56,24 @@ class Row extends Override {
                 'middle' => '<i class="tailor-icon tailor-align-middle"></i>',
                 'bottom' => '<i class="tailor-icon tailor-align-bottom"></i>',
             ],
-            'priority' => 22,
-        ]);
-        $element->add_control('row_unstack', [
+            'priority' => $priority++,
+        ];
+        // XY-Grid
+        $row_gutter = [
+            'type' => 'select-multi',
+            'label' => __('Gutter', 'tailor-foundation'),
+            'description' => __('What kind of spacing should exist between the cells. Margins are applied only between cells, while paddings are applied on all sides.', 'tailor-foundation'),
+            'section' => 'general',
+            'choices' => [
+                'grid-margin-x' => __('Horizontal margin', 'tailor-foundation'),
+                'grid-margin-y' => __('Vertical margin', 'tailor-foundation'),
+                'grid-padding-x' => __('Horizontal padding', 'tailor-foundation'),
+                'grid-padding-y' => __('Vertical padding', 'tailor-foundation'),
+            ],
+            'priority' => $priority++,
+        ];
+        // Flex Grid
+        $row_unstack = [
             'type' => 'select-multi',
             'label' => __('Unstack', 'tailor-foundation'),
             'description' => __('Stack all columns in the row by default, and then unstack them on a larger screen size, making each one equal-width.', 'tailor-foundation'),
@@ -74,9 +82,10 @@ class Row extends Override {
                 'medium' => __('Tablet', 'tailor-foundation'),
                 'large' => __('Desktop', 'tailor-foundation'),
             ],
-            'priority' => 23,
-        ]);
-        $element->add_control('row_collapse', [
+            'priority' => $priority++,
+        ];
+        // Flex Grid.
+        $row_collapse = [
             'type' => 'select-multi',
             'label' => __('Collapse from', 'tailor-foundation'),
             'description' => __('Remove column gutters from this viewport up.', 'tailor-foundation'),
@@ -86,9 +95,26 @@ class Row extends Override {
                 'medium' => __('Tablet', 'tailor-foundation'),
                 'large' => __('Desktop', 'tailor-foundation'),
             ],
-            'priority' => 23,
-        ]);
-        $element->add_control('row_uncollapse', [
+            'priority' => $priority++,
+        ];
+        // XY-Grid
+        $row_xy_collapse = [
+            'type' => 'select-multi',
+            'label' => __('Collapse', 'tailor-foundation'),
+            'description' => __('Remove column gutters from this viewport up.', 'tailor-foundation'),
+            'section' => 'general',
+            'choices' => [
+                'small-margin' => __('Mobile margin', 'tailor-foundation'),
+                'small-padding' => __('Mobile padding', 'tailor-foundation'),
+                'medium-margin' => __('Tablet margin', 'tailor-foundation'),
+                'medium-padding' => __('Tablet padding', 'tailor-foundation'),
+                'large-margin' => __('Desktop margin', 'tailor-foundation'),
+                'large-padding' => __('Desktop padding', 'tailor-foundation'),
+            ],
+            'priority' => $priority++,
+        ];
+        // Flex Grid.
+        $row_uncollapse = [
             'type' => 'select-multi',
             'label' => __('Uncollapse from', 'tailor-foundation'),
             'description' => __('Add back column gutters from this viewport up.', 'tailor-foundation'),
@@ -97,41 +123,86 @@ class Row extends Override {
                 'medium' => __('Tablet', 'tailor-foundation'),
                 'large' => __('Desktop', 'tailor-foundation'),
             ],
-            'priority' => 23,
-        ]);
-        $element->add_control('row_grid', [
+            'priority' => $priority++,
+        ];
+
+        $row_grid = [
             'type' => 'select',
             'label' => __('Force grid', 'tailor-foundation'),
-            'description' => __('Ignore any column sizes and force a grid', 'tailor-foundation'),
+            'description' => __('Ignore any column sizes and force a grid with this many columns. Not that `auto` and `shrink` still apply.', 'tailor-foundation'),
             'section' => 'general',
             'choices' => ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-            'priority' => 24,
-        ]);
+            'priority' => $priority++,
+        ];
+
+        if (apply_filters('tailor-foundation/grid', 'flex-grid') == 'flex-grid') {
+            $element->add_setting('row_horizontal_align', $setting);
+            $element->add_setting('row_vertical_align', $setting);
+            $element->add_setting('row_unstack', $setting);
+            $element->add_setting('row_collapse', $setting);
+            $element->add_setting('row_uncollapse', $setting);
+            // $element->add_setting('row_gutter', $setting);
+            $element->add_setting('row_grid', $setting);
+            $element->add_setting('row_grid_mobile', $setting);
+            $element->add_setting('row_grid_tablet', $setting);
+
+            $element->add_control('row_horizontal_align', $row_horizontal_align);
+            $element->add_control('row_vertical_align', $row_vertical_align);
+            $element->add_control('row_unstack', $row_unstack);
+            $element->add_control('row_collapse', $row_collapse);
+            $element->add_control('row_uncollapse', $row_uncollapse);
+            $element->add_control('row_grid', $row_grid);
+        } else {
+            $element->add_setting('row_horizontal_align', $setting);
+            $element->add_setting('row_vertical_align', $setting);
+            // $element->add_setting('row_unstack', $setting);
+            $element->add_setting('row_collapse', $setting);
+            // $element->add_setting('row_uncollapse', $setting);
+            $element->add_setting('row_gutter', $setting + ['default' => 'grid-margin-x,grid-margin-y']);
+            $element->add_setting('row_grid', $setting);
+            $element->add_setting('row_grid_mobile', $setting);
+            $element->add_setting('row_grid_tablet', $setting);
+
+            $element->add_control('row_horizontal_align', $row_horizontal_align);
+            $element->add_control('row_vertical_align', $row_vertical_align);
+            // $element->add_control('row_unstack', $row_unstack);
+            $element->add_control('row_gutter', $row_gutter);
+            $element->add_control('row_collapse', $row_xy_collapse);
+            // $element->add_control('row_uncollapse', $row_uncollapse);
+            $element->add_control('row_grid', $row_grid);
+        }
     }
 
     public function add_foundation_classes($html_atts, $atts, $tag) {
         if ($tag == 'tailor_row' || $tag == 'tailor_grid') {
-            $html_atts['class'][] = 'row';
+
+            if (apply_filters('tailor-foundation/grid', 'flex-grid') == 'flex-grid') {
+                $html_atts['class'][] = 'row';
+            } else {
+                $html_atts['class'][] = 'grid-x';
+            }
+
             if (!empty($atts['row_vertical_align'])) {
                 $html_atts['class'][] = 'align-' . $atts['row_vertical_align'];
             }
             if (!empty($atts['row_horizontal_align'])) {
                 $html_atts['class'][] = 'align-' . $atts['row_horizontal_align'];
             }
-            if (!empty($atts['row_collapse'])) {
-                $html_atts['class'][] = $atts['row_collapse'] . '-collapse';
+
+            foreach ($this->multi_classes('row_unstack', $atts) as $class) {
+                $html_atts['class'][] = "$class-unstack";
             }
-            if (!empty($atts['row_uncollapse'])) {
-                $html_atts['class'][] = $atts['row_uncollapse'] . '-uncollapse';
+            foreach ($this->multi_classes('row_gutter', $atts) as $class) {
+                $html_atts['class'][] = $class;
             }
-            if (!empty($atts['row_grid'])) {
-                $html_atts['class'][] = 'large-up-' . $atts['row_grid'];
+            foreach ($this->multi_classes('row_collapse', $atts) as $class) {
+                $html_atts['class'][] = "$class-collapse";
             }
-            if (!empty($atts['row_grid_tablet'])) {
-                $html_atts['class'][] = 'medium-up-' . $atts['row_grid_tablet'];
+            foreach ($this->multi_classes('row_uncollapse', $atts) as $class) {
+                $html_atts['class'][] = "$class-uncollapse";
             }
-            if (!empty($atts['row_grid_mobile'])) {
-                $html_atts['class'][] = 'small-up-' . $atts['row_grid_mobile'];
+            foreach($this->responsive_classes('row_grid', $atts) as $breakpoint => $grid) {
+                $html_atts['class'][] = "$breakpoint-up-$grid";
             }
         }
         return $html_atts;

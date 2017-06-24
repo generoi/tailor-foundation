@@ -32,6 +32,7 @@ class Grid extends Override {
             'hidden',
         ]);
 
+        // Override what row.php has already defined.
         $grid_control = $element->get_control('row_grid');
         $grid_control->label = __('Items per row', 'tailor-foundation');
         $grid_control->description = '';
