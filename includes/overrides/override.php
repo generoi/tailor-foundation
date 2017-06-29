@@ -49,8 +49,8 @@ class Override {
 
     public function remove_css_rules(&$css_rule_set, $settings) {
         foreach ($settings as $setting) {
-            $setings[] = $setting . '_mobile';
-            $setings[] = $setting . '_tablet';
+            $settings[] = $setting . '_mobile';
+            $settings[] = $setting . '_tablet';
         }
         foreach ($css_rule_set as $idx => $rule) {
             if (empty($rule['setting'])) {
