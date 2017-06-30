@@ -158,7 +158,7 @@ class Row extends Override {
             // $element->add_setting('row_unstack', $setting);
             $element->add_setting('row_collapse', $setting);
             // $element->add_setting('row_uncollapse', $setting);
-            $element->add_setting('row_gutter', $setting + ['default' => 'grid-margin-x,grid-margin-y']);
+            $element->add_setting('row_gutter', $setting + ['default' => 'grid-padding-x,grid-padding-y']);
             $element->add_setting('row_grid', $setting);
             $element->add_setting('row_grid_mobile', $setting);
             $element->add_setting('row_grid_tablet', $setting);
