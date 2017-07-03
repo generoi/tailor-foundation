@@ -13,7 +13,16 @@ Supports both Flex Grids and Xy-Grids but if using Xy-grids you need to add a fi
 - Button
 - Hero
 - List (needs works)
-- Posts (also exposes _post type_ and non-tailor slick instances) 
+- Posts (also exposes _post type_ and non-tailor slick instances)
 - Image (duplicate of Image element in [Tailor advanced](https://github.com/andrew-worsfold/tailor-advanced) with minor adjustments)
 - Global Visibility classes
 - Removes a heap of attribute options.
+
+## Filters
+
+```php
+// Use Xy-grid rather than the default flex-grid.
+add_filter('tailor-foundation/grid', function () {
+  return 'xy-grid';
+});
+```
